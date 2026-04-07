@@ -115,14 +115,21 @@ This block tells the microcontroller which output pin attaches to the chain of p
 It depends on another block that is provided in the MicroBlocks standard *NeoPixels* library, so please be sure to load that library also (in the event it does not get loaded automatically.)
 
 ### Manage Data Records
+Use the following block for one-dimensional devices such as the rigid ring-shaped ones or flexible strings of holiday lights.
 
 ![image of the *new device* block](block_images/new_device.png)
 
+Enter the number of NeoPixels on the ring or in the string as the *width* of the device.
+
+Extending the block reveals an optional, second input, as shown below. In this form, the program can input both the *width* and the *height* of a two-dimensional NeoPixel panel.
+
 ![image of the *new device* block with optional width](block_images/new_device_with_option.png)
 
-Use these blocks to create new device data records and assign them as contents of named variables.
+Use these blocks as shown in **Listing 1** to create new device data records and assign them as contents of named variables.
 
-The variable names should be descriptive of the device. For example, an 8x8 NeoPixel panel could be named *Panel_8x8*. This makes it easier for humans to read the program.
+The variable names should be descriptive of the device. For example, an 8x8 NeoPixel panel could be named *Panel_8x8*.  
+
+Naming variables this way is merely a personal choice of programming style. Doing so can make it easier for humans to read the program. However, the name of a variable has no effect on how a program will work.
 
 ---
 
