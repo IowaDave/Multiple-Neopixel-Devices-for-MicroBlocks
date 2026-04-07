@@ -225,6 +225,14 @@ This block pauses execution of a script when it finds the specified object to be
 
 Execution is allowed to resumes after the other script unlocks the object. 
 
+See the *concurrent processing* example. The program sets up a chain of two devices and defines a graphical object to animate on each of them. Then it launches three, separate scripts that run concurrently:
+
+* draw on the panel every 127 milliseconds
+* draw on the ring every 179 milliseconds
+* display both the panel and the ring every 79 milliseconds
+
+From time to time one of the scripts will pause while one of the device data records remains locked by another script. Yet, the animation proceeds smoothly and the graphical object always appears correctly on both devices.
+
 ---
 
 ![image of the *lock* block](block_images/lock.png)
@@ -243,14 +251,14 @@ This setting indicates that no script is using the object, implying that the dev
 
 ## Examples
 
-Initially there are two example programs.
+Presently there are three example programs.
 
-Both of the programs are customized to work with a device chain arranged in a certain way:
+All of the programs are customized to work with a device chain arranged in a certain way:
 
 First: a two-dimensional NeoPixel panel having 8 rows and 8 columns of NeoPixels. IMPORTANT: the panel must be of the *serpentine* layout, which is how most of them are produced.
 
 Second: a ring-shaped device having 24 NeoPixels on it.
 
-Comments in the two programs provide some documentation about what is going on.
+Comments in the programs provide some documentation about what is going on.
 
-Closer inspection of the code is left as an exercise for the reader.
+Closer study of the code is left as an exercise for the reader.
