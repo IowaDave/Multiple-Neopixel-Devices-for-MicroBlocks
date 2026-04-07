@@ -23,7 +23,7 @@ This project introduces a library that builds upon and extends those libraries t
 * [Examples](#examples)
 
 ## Using the Library
-Download the library ono your computer from this repository. Its name is [NeoPixelDevices_v4-1.ubl](NeoPixelDevices_4-1.ubl).
+Download the library onto your computer from this repository. Its name is [NeoPixelDevices_v4-1.ubl](NeoPixelDevices_4-1.ubl).
 
 Launch MicroBlocks, using one of the methods explained on the [web site for the language](https://microblocks.fun).
 
@@ -44,23 +44,27 @@ Having those two libraries installed, a typical way to initialize a MicroBlocks 
 ## Programming Concepts of the Library
 The *NeoPixelDevices* library takes advantage of how easy it is to use Lists in MicroBlocks.
 
-The List data type in MicroBlocks can contain an arbitrary (and changeable) number of data items including numbers, text, boolean (true-false) values  and (this is the cool part) *other lists*.
+The List data type in MicroBlocks can contain an arbitrary (and changeable) number of data items including:
+* numbers, 
+* text, 
+* boolean (true-false) values and 
+* (this is the cool part) *other lists*.
 
-Each physical device is represented by a list of five data items, forming a data record to contain its:
+Each physical NeoPixel device is represented in this library by a list of five data items, forming a data record to contain its:
 
 1. width and 
 2. (optionally) its height as numbers of NeoPixels, 
-3. its type (as text: ring, string or panel), 
+3. its type (as text: &lsquo;ring&rsquo;, &lsquo;string&rsquo; or &lsquo;panel&rsquo;), 
 4. a Boolean "lock" flag that can come in handy during concurrent processing, and finally 
 5. a list serving as a buffer to hold each and all of the individual NeoPixel color values for the WS2811 LEDs on the device.
 
 The library enables a program to access these different data &ldquo;fields&rdquo; by name. 
 
-Staying with the program example begun above, a subroutine could discover and set a local variable named MaxPixel to the number of pixels on the NeoPixel ring named *Ring_24* this way:
+Staying with the **Listing 1** program example, a subroutine could initialize a local variable and set its value to the number of pixels on the NeoPixel ring named *Ring_24* this way:
 
 ![image of a MicroBlocks program block](block_images/get_width.png)
 
-In the previous example, **Listing 1**, a list named *DeviceChain* contains the data records for each physical device in the chain attached to the microcontroller. 
+In **Listing 1**, a variable named *DeviceChain* is set to contain a list of the data records for each physical device in the chain attached to the microcontroller. 
 
 Look at the block again,
 
@@ -72,7 +76,9 @@ The first device record in the list should represent the physical device actuall
 
 For the arrangement shown in this example to work right, that physical 8x8 panel should be the device attached to the controller.
 
-Then the other data records follow in the same order as they follow outward from the controller in the physical chain.
+Then the other data records follow in the same order as the devices follow outward from the controller in the physical chain.
+
+---
 
 All of the blocks for manipulating NeoPixels on a device take the device record as one of their inputs. 
 
@@ -82,11 +88,13 @@ For example, building upon the initialization shown in **Listing 1**, draw a sol
 
 ![image of a MicroBlocks code block for drawing a rectangle](block_images/example_rectangle.png)
 
-You can draw many times into a device without affecting its visual presentation. These *NeoPixelDevices* blocks serve to prepare a device for viewing. 
+You can draw many times into a device without affecting its visual presentation. 
+
+Most of these *NeoPixelDevices* blocks serve to prepare a device for viewing but do not display it. There is a good reason.
 
 Delaying the display empowers a program to prepare complex visual presentations without having each drawing step appear immediately.
 
-When the devices are ready for display, a single block updates all of them by working through the list of device data records. For example, display the devices in the *DeviceChain* list created previously, in **Listing1**:
+When the devices are ready for display, a single block updates all of them by working through the list of device data records. For example, display the devices in the *DeviceChain* list:
 
 ![image of a MicroBlocks program block to display the chain of devices](block_images/example_display.png)
 
@@ -115,21 +123,25 @@ This block tells the microcontroller which output pin attaches to the chain of p
 It depends on another block that is provided in the MicroBlocks standard *NeoPixels* library, so please be sure to load that library also (in the event it does not get loaded automatically.)
 
 ### Manage Data Records
-Use the following block for one-dimensional devices such as the rigid ring-shaped ones or flexible strings of holiday lights.
+Use the following block for one-dimensional devices such as the rigid ring-shaped ones or flexible strands of holiday lights.
+
+Enter the number of NeoPixels on the ring or in the strand as the *width* of the device.
 
 ![image of the *new device* block](block_images/new_device.png)
-
-Enter the number of NeoPixels on the ring or in the string as the *width* of the device.
 
 Extending the block reveals an optional, second input, as shown below. In this form, the program can input both the *width* and the *height* of a two-dimensional NeoPixel panel.
 
 ![image of the *new device* block with optional width](block_images/new_device_with_option.png)
 
-Use these blocks as shown in **Listing 1** to create new device data records and assign them as contents of named variables.
+Use these blocks as inputs to the MicroBlocks standard *set* block, as shown in **Listing 1**. to create new device data records and assign them as contents of named variables.
 
-The variable names should be descriptive of the device. For example, an 8x8 NeoPixel panel could be named *Panel_8x8*.  
+Here is another look at that:
 
-Naming variables this way is merely a personal choice of programming style. Doing so can make it easier for humans to read the program. However, the name of a variable has no effect on how a program will work.
+![image of *set variable* block setting a variable to contain a panel device data record](block_images/set_variable_to_panel.png)
+
+Names of variables should be descriptive of the data they contain. For example, *Panel_8x8* looks informative for the variable containing a data record for an 8x8 NeoPixel panel.  
+
+Naming variables this way is nothing more than a personal choice of programming style. Doing so can make it easier for humans to read the program. However, the name of a variable has no effect on how a program will work.
 
 ---
 
@@ -196,19 +208,25 @@ Only the specified device is affected by these blocks. The visual display of the
 
 ![image of the *set_x-y* block](block_images/set_xy.png)
 
-Sets the pixel to the chosen color at the given *column,row* position on the device.
+Sets the pixel to the chosen color at the given (*x*,*y*) position on the device.
 
 ---
 
 ![image of *fill column* block](block_images/fill_column.png)
 
-Set all of the NeoPixels to the chosen color in the specified column of the device.
+Set all of the NeoPixels to the chosen color in the specified &ldquo;column&rdquo; of the device.
+
+As noted previously, whether the result looks like a column, and not a row, depends upon the placement of the physical device and the viewpoint of the observer.
 
 ---
 
 ![image of *fill row* block](block_images/fill_row.png)
 
-Set all of the NeoPixels to the chosen color in the specified row of the device.
+Set all of the NeoPixels to the chosen color in the specified &ldquo;row&rdquo; of the device.
+
+The result will lay perpendicular to that obtained by the *fill column* block described above.
+
+Again, whether the result looks like a row, and not a column, depends upon the placement of the physical device and the viewpoint of the observer.
 
 ---
 
@@ -224,9 +242,9 @@ Approximate a straight line of the chosen color on the specified device from the
 
 Draw a rectangle on the specified device using the chosen color, starting at the given (x,y) coordinate positon. 
 
-Row and column coordinates for the other NeoPixels within the rectangle increase from the given x and y positions. 
+*x* and *y* coordinates for the other NeoPixels within the rectangle increase from the given x and y positions. 
 
-The code writer is responsible to ensure that adding the values for width and height to the given x and y positions remain withing a suitable range for the device.
+The code writer is responsible to ensure that values obtained by adding width and height to the given x and y positions remain withing a suitable range for the device.
 
 Extending the block reveals an optional setting to fill the rectangle with the chosen color. Setting the option to *false* will leave the rectangle unfilled.
 
@@ -238,9 +256,9 @@ Extending the block reveals an optional setting to fill the rectangle with the c
 
 Draw a circle on the specified device using the chosen color, placing the origin (center) at the given (x,y) coordinate positon.
 
-Row and column positions for the other NeoPixels within the circle both increase and decrease from the given x and y positions. 
+*x* and *y* coordinates for the other NeoPixels within the circle both increase and decrease from the given x and y positions. 
 
-The code writer is responsible to ensure that pixel positions obtained by adding and subtracting the radius will remain suitable for the device.
+The code writer is responsible to ensure that values obtained by adding and subtracting the radius will remain suitable for the device.
 
 Extending the block reveals an optional setting to fill the circle with the chosen color. Setting the option to *false* will leave the circle unfilled.
 
@@ -255,6 +273,28 @@ This block reports the contents of a named data field in the specified device re
 ![image of the *wait* block](block_images/wait.png)
 
 This block and the two that follow below are designed to help a program writer avoid data corruption in concurrent (that is, multitasking) program designs. 
+
+See [Locking a Data Object](#locking-a-data-object-for-concurrent-execution)
+
+---
+
+![image of the *lock* block](block_images/lock.png)
+
+Set the *lock* field in the data record of the specified device to *true*. 
+
+Other scripts may check this field to determine whether it is OK for them to access the data for that device.
+
+See [Locking a Data Object](#locking-a-data-object-for-concurrent-execution)
+
+---
+
+![image of the *unlock* block](block_images/unlock.png)
+
+Set the *lock* field in the data record of the specified device to *false*.
+
+This setting indicates that no script is using the object, implying that the device data record is available for reading or writing.
+
+### Locking a Data Object for Concurrent Execution
 
 The idea is to regulate the execution of the program in such a way that only one script will access a data object at any given time. 
 
@@ -274,27 +314,12 @@ See the *concurrent processing* example. The program sets up a chain of two devi
 
 From time to time one of the scripts will pause while one of the device data records remains locked by another script. Yet, the animation proceeds smoothly and the graphical object always appears correctly on both devices.
 
----
-
-![image of the *lock* block](block_images/lock.png)
-
-Set the *lock* field in the data record of the specified device to *true*. 
-
-Other scripts may check this field to determine whether it is OK for them to access the data for that device.
-
----
-
-![image of the *unlock* block](block_images/unlock.png)
-
-Set the *lock* field in the data record of the specified device to *false*.
-
-This setting indicates that no script is using the object, implying that the device data record is available for reading or writing.
 
 ## Examples
 
 Presently there are three example programs.
 
-All of the programs are customized to work with a device chain arranged in a certain way:
+All of the example programs are custom-tailored to work with a device chain arranged in a certain way:
 
 First: a two-dimensional NeoPixel panel having 8 rows and 8 columns of NeoPixels. IMPORTANT: the panel must be of the *serpentine* layout, which is how most of them are produced.
 
