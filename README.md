@@ -41,12 +41,14 @@ Having those two libraries installed, a typical way to initialize a MicroBlocks 
 
 ![Example of a MicroBlocks code listing](block_images/when_started.png)<br>**Listing 1:** Initialization
 
+[back to Contents](#contents)
+
 ## Programming Concepts of the Library
 The *NeoPixelDevices* library takes advantage of how easy it is to use Lists in MicroBlocks.
 
-The List data type in MicroBlocks can contain an arbitrary (and changeable) number of data items including:
-* numbers, 
+The List data type in MicroBlocks can contain an arbitrary (and changeable) number of data items, and the data items can be any of the types supported by MicroBlocks, including:
 * text, 
+* numbers, 
 * boolean (true-false) values and 
 * (this is the cool part) *other lists*.
 
@@ -58,13 +60,27 @@ Each physical NeoPixel device is represented in this library by a list of five d
 4. a Boolean "lock" flag that can come in handy during concurrent processing, and finally 
 5. a list serving as a buffer to hold each and all of the individual NeoPixel color values for the WS2811 LEDs on the device.
 
+Importantly, keeping all five of these data items, or *fields*, together in a single list makes it possible to assign them as a group to a single, named variable. 
+
+In this way, a program is able to refer to the devices by name. It is similar to the concept of a *struct* or a *record* in some other languages, though not quite.
+
+The library provides a *new neopixel device* block which takes care of setting up all five of the *fields* in one of these device data lists.
+
+Combining that block with the standard, built-in *set* block of MicroBlocks, the device data list can be stored in a named variable. 
+
+**Listing 1** displays two examples of setting a named variable to contain a device data list. Here is another look at one of those instructions.
+
+![image of *set variable* block setting a variable to contain a panel device data record](block_images/set_variable_to_panel.png)
+
 The library enables a program to access these different data &ldquo;fields&rdquo; by name. 
 
 Staying with the **Listing 1** program example, a subroutine could initialize a local variable and set its value to the number of pixels on the NeoPixel ring named *Ring_24* this way:
 
 ![image of a MicroBlocks program block](block_images/get_width.png)
 
-In **Listing 1**, a variable named *DeviceChain* is set to contain a list of the data records for each physical device in the chain attached to the microcontroller. 
+Remember that a MicroBlocks List can contain other lists as its data items. Using that convenient feature, the program can create a list representing the entire chain of NeoPixel devices attached to the microcontroller.
+
+In **Listing 1**, a variable named *DeviceChain* is set to contain a list of the data records for two devices. 
 
 Look at the block again,
 
@@ -98,6 +114,8 @@ When the devices are ready for display, a single block updates all of them by wo
 
 ![image of a MicroBlocks program block to display the chain of devices](block_images/example_display.png)
 
+[back to Contents](#contents)
+
 ## Blocks Reference
 The blocks are listed in the Palette area of the MicroBlocks editing window. 
 
@@ -121,6 +139,8 @@ The blocks are shown in groups separated by spaces. In each group, the blocks sh
 This block tells the microcontroller which output pin attaches to the chain of physical devices.
 
 It depends on another block that is provided in the MicroBlocks standard *NeoPixels* library, so please be sure to load that library also (in the event it does not get loaded automatically.)
+
+[back to Contents](#contents)
 
 ### Manage Data Records
 Use the following block for one-dimensional devices such as the rigid ring-shaped ones or flexible strands of holiday lights.
@@ -149,15 +169,15 @@ Naming variables this way is nothing more than a personal choice of programming 
 
 Use this block to transmit the NeoPixel color values from the device records in the list to the physical devices in the chain.
 
+[back to Contents](#contents)
+
 ### Generic Devices
 
 ![image of the *clear* block](block_images/clear.png)
 
-Sets all of the NeoPixel color values to zero for the named device. It does not affect pixel information for other devices in the chain. 
+Sets all of the NeoPixel color values to zero for the named device. As with all of the other &ldquo;drawing blocks&rdquo; in this library, it does not alter any pixel information for other devices in the chain. 
 
-Note that the visual display of the device is not immediately updated by this block. In other words, it will not go dark right away. 
-
-Instead, this block simply erases previous drawing instructions fropm the device and prepares the device to reflect only subsequent drawing instructions.
+This block is typically used to erase previous drawing instructions from the device in preparation for subsequent drawing instructions.
 
 ---
 
@@ -165,15 +185,11 @@ Instead, this block simply erases previous drawing instructions fropm the device
 
 Sets the specified NeoPixel number to the given color. The block is mostly useful for one-dimensional ring-shaped devices and for strings of NeoPixels.
 
-No other devices are affected. The visual display of the device is not immediately updated by this block.
-
 ---
 
 ![image of the *set all* block](block_images/set_all.png)
 
 Sets all of the NeoPixels of a device to the given color. 
-
-No other devices are affected. The visual display of the device is not immediately updated by this block.
 
 ---
 
@@ -186,6 +202,8 @@ How does it do that?
 Internally, the device record structure contains a list having one item of data -- a NeoPixel color -- for each NeoPixel of the device.
 
 This block takes the first item off the list and adds it to the end of the list. The previously second item becomes the first, and so forth until the cycle has been repeated the specified number of times.
+
+[back to Contents](#contents)
 
 ### Two-Dimensional Panels
 
@@ -262,6 +280,8 @@ The code writer is responsible to ensure that values obtained by adding and subt
 
 Extending the block reveals an optional setting to fill the circle with the chosen color. Setting the option to *false* will leave the circle unfilled.
 
+[back to Contents](#contents)
+
 ### Data Fields
 
 ![image of the *field* block](block_images/field.png)
@@ -320,6 +340,7 @@ See the *concurrent processing* example. The program sets up a chain of two devi
 
 From time to time one of the scripts will probably have to pause while one of the device data records remains locked by another script. Yet, the animation proceeds smoothly and the snake slithers along its way correctly on both devices.
 
+[back to Contents](#contents)
 
 ## Examples
 
@@ -336,3 +357,5 @@ Comments in the programs provide some documentation about what is going on.
 Closer study of the code is left as an exercise for the reader.
 
 I expect to write more about the examples. Please consider checking back here from time to time.
+
+[back to top](#multiple-neopixel-devices-for-microblocks)
