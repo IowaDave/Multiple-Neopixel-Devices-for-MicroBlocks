@@ -27,7 +27,7 @@ How many devices can be chained together this way? It depends on the number and 
 ## Using the Library
 
 ### Installation
-Download the library onto your computer from this repository. Its name is [NeoPixelDevices_v4-2.ubl](NeoPixelDevices_4-2.ubl).
+Download the library onto your computer from this repository. Its name is [NeoPixelDevices_v4-2.ubl](NeoPixelDevices_v4-2.ubl).
 
 Launch MicroBlocks, using one of the methods explained on the [web site for the language](https://microblocks.fun).
 
